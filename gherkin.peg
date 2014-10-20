@@ -15,10 +15,7 @@ Story <-
   { p.EndStory() } !.
 
 Narrative <-
-  WS* 'In order to' WS* String+ LINES+
-  WS* String+ WS* 'should be able to' LINES+
-  WS* String+ WS*
-  LINES+
+  (WS* !('Background:' / 'Scenario:') String+ LINES+)+
 
 Background <- 
   WS* 'Background:' WS* String 
