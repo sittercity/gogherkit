@@ -6,7 +6,7 @@ type Gherkin Peg {
 
 
 Story <- 
-  WS* 'Feature:' WS* <String>
+  Tags 'Feature:' WS* <String>
   { p.BeginStory(buffer[begin:end]) } 
   LINES+
   Narrative?
@@ -26,7 +26,7 @@ Background <-
   Step+
 
 Scenario <- 
-  WS* 'Scenario:' WS* <String> 
+  Tags 'Scenario:' WS* <String> 
   { p.BeginScenario(buffer[begin:end]) } 
   LINES+ 
   Step* 
@@ -41,6 +41,12 @@ Step <-
   LINES+
 
 String <- [^\n]+
+
+Tag <-
+  (NL/WS)* '@' [^\r\n\t "#]+
+
+Tags <-
+  (Tag+ WS*)* (NL/WS)*
 
 WS <- (' ' / '\t')
 
